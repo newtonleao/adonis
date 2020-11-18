@@ -1,7 +1,6 @@
 'use strict'
 
-class RegisterAuth {
-
+class StoreCliente {
   get validateAll () {
     return true
   }
@@ -11,9 +10,9 @@ class RegisterAuth {
   }
   get rules () {
     return {
-      email: 'required|email|unique:users',
-      password: 'required',
-      username: 'required|unique:users'
+      email: 'required|email|unique:clientes',
+      name: 'required',
+      telephone: 'required|unique:clientes'
     }
   }
 
@@ -22,11 +21,11 @@ class RegisterAuth {
       'email.required': 'E-mail obrigatório.',
       'email.email': 'Formato errado de E-mail.',
       'email.unique': 'Este E-mail já foi registrado.',
-      'password.required': 'Password obrigatório',
-      'username.required': 'Usuário obrigatório',
-      'username.unique': 'Usuário já cadastrado'
+      'name.required': 'Nome obrigatório',
+      'telephone.required': 'Telefone obrigatório.',
+      'telephone.unique': 'Este Telefone já foi registrado.'
     }
   }
 }
 
-module.exports = RegisterAuth
+module.exports = StoreCliente

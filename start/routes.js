@@ -26,3 +26,12 @@ Route.group(() => {
   .except('update')
 }).middleware('auth')
 
+Route.post('/clientes','ClienteController.store')
+.validator('StoreCliente')
+
+Route.group(() => {
+  Route.resource('clientes', 'ClienteController')
+  .apiOnly()
+  .except('store')
+})
+
