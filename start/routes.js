@@ -35,3 +35,30 @@ Route.group(() => {
   .except('store')
 })
 
+Route.post('/categorias','CategoriaController.store')
+.validator('StoreCategoria')
+
+Route.group(() => {
+  Route.resource('categorias', 'CategoriaController')
+  .apiOnly()
+  .except('store')
+})
+
+Route.post('/fornecedors','FornecedorController.store')
+.validator('StoreFornecedor')
+
+Route.group(() => {
+  Route.resource('fornecedors', 'FornecedorController')
+  .apiOnly()
+  .except('store')
+})
+
+Route.post('/enderecoEntregas','EnderecoEntregaController.store')
+.validator('StoreEnderecoEntrega')
+
+Route.group(() => {
+  Route.resource('enderecoEntregas', 'EnderecoEntregaController')
+  .apiOnly()
+  .except('store')
+})
+

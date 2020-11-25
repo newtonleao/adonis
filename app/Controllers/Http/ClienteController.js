@@ -9,6 +9,8 @@
  */
 
 const Cliente = use('App/Models/Cliente')
+const EnderecoEntrega = use('App/Models/EnderecoEntrega')
+const Database = use('Database')
 
 class ClienteController {
   /**
@@ -21,7 +23,11 @@ class ClienteController {
    * @param {View} ctx.view
    */
   async index () {
-    const clientes = await Cliente.all()
+   // const clientes = await Cliente.all()
+   const clientes = await Database
+  .select('clientes.*','endereco_entregas.*')
+  .table('clientes')
+  .innerJoin('endereco_entregas', 'clientes.id', 'endereco_entregas.cliente_id')
 
     return clientes
   }
@@ -53,11 +59,22 @@ class ClienteController {
    * @param {View} ctx.view
    */
   async show ({ params, response }) {
-    const cliente = await Cliente.findBy('id',params.id)
+    /* const cliente = await Cliente.findBy('id',params.id)
     if (cliente === null){
       response.status(404).send({'erro':'Cliente Não encontrado'})
     }
-    return cliente
+    return cliente */
+    const cliente = await Database
+    .select('clientes.*','endereco_entregas.*')
+    .table('clientes')
+    .innerJoin('endereco_entregas', 'clientes.id', 'endereco_entregas.cliente_id')
+    .where('clientes.id',params.id)
+  
+  if (cliente == null || cliente == ''){
+    response.status(404).send({'erro':'Cliente Não encontrado'})
+  }
+
+  return cliente
   }
 
   /**
