@@ -7,6 +7,10 @@ class Fornecedor extends Model {
     categoria (){
         return this.belongsTo('App/Models/Categoria')
     }
+
+    endereco_fornecedors() {
+        return this.hasOne('App/Models/EnderecoFornecedor')
+      }
 }
 
 module.exports = Fornecedor

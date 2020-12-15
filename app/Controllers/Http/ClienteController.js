@@ -77,6 +77,25 @@ class ClienteController {
   return cliente
   }
 
+  async showCompleto ({ params, response }) {
+    /* const cliente = await Cliente.findBy('id',params.id)
+    if (cliente === null){
+      response.status(404).send({'erro':'Cliente Não encontrado'})
+    }
+    return cliente */
+    const cliente = await Database
+    .select('clientes.*','endereco_entregas.*')
+    .table('clientes')
+    .innerJoin('endereco_entregas', 'clientes.id', 'endereco_entregas.cliente_id')
+    .where('clientes.id',params.id)
+  
+  if (cliente == null || cliente == ''){
+    response.status(404).send({'erro':'Cliente Não encontrado'})
+  }
+
+  return cliente
+  }
+
   /**
    * Update cliente details.
    * PUT or PATCH clientes/:id
